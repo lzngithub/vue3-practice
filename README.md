@@ -22,3 +22,15 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## 添加的依赖
+
+### less
+
+安装命令
+
+```shell
+yarn add less less-loader -D
+```
+
+### element-plus
