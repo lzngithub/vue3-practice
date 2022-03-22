@@ -10,16 +10,16 @@
 </template>
 
 <script>
-import useSearch from '../composables/useSearch.js'
+import useSearch from "../composables/useSearch.js"
 export default {
   data() {
-    return {};
+    return {
+    }
   },
   setup() {
-      return useSearch()
-
-  },
-};
+    return useSearch()
+  }
+}
 </script>
 
 <style lang="less" scoped>
@@ -30,4 +30,3 @@ export default {
   width: 200px;
 }
 </style>
->
