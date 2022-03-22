@@ -78,6 +78,12 @@ Prettier 是一款强大的代码格式化工具，支持 JavaScript、TypeScrip
 
 配置：[https://prettier.io/docs/en/configuration.html](https://prettier.io/docs/en/configuration.html)
 
+安装
+
+```shell
+yarn add prettier -D
+```
+
 在项目根目录添加.prettierrc文件，该文件支持JOSN和YAML语法
 
 ```json
