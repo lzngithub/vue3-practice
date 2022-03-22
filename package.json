@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "prepare": "husky install"
   },
   "dependencies": {
     "core-js": "^3.8.3",
@@ -24,9 +25,14 @@
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^8.5.0",
+    "husky": "^7.0.0",
     "less": "^4.1.2",
     "less-loader": "^10.2.0",
+    "lint-staged": "^12.3.7",
     "prettier": "^2.6.0"
+  },
+  "lint-staged": {
+    "*.{vue,js,ts}": "eslint --fix"
   },
   "eslintConfig": {
     "root": true,
