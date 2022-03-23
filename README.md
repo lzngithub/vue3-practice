@@ -1,43 +1,63 @@
 # vue3-practice
 
-## Project setup
-```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+这是一个集合代码规范，提交规范的的一个vue3的项目，主要用来学习vue3和项目代码规范的一个例子，后面后慢慢往里面加TypeScript和一个项目基本需要使用的功能，包括router，vuex，vite个性化定制，axios等功能
 
 ## 技术栈
 
-* 代码规范：EditorConfig + Prettier + ESlint
+* 包管理器: yarn
+* css预编译工具：less
+* UI组件库：element-plus
+* 代码规范：EditorConfig + Prettier + ESlint + Airbnb JavaScript Style Guide
+* Git hook工具：husky + lint-staged
+* 提交规范：commitlint
 
-## 添加的依赖
 
-### less
+## less
 
-安装命令
+css预处理工具  
+官网：[https://less.bootcss.com/](https://less.bootcss.com/)
+
+1. 安装 less
+
 
 ```shell
 yarn add less less-loader -D
 ```
 
-### element-plus
+2. 使用例子（vue3）
+
+```less
+<style lang="less" scoped>
+.content {
+  color: #409eff;
+}
+.search {
+  width: 200px;
+}
+</style>
+```
+
+## element-plus
+
+官网：[https://element-plus.gitee.io/zh-CN/](https://element-plus.gitee.io/zh-CN/)
+
+1. 安装 element-plus
+
+```shell
+yarn add element-plus
+```
+2. 在项目中引入（vue3）
+
+在main.js文件中加入以下内容
+
+```js
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
+
+app.use(ElementPlus)
+```
+
+
 
 ## 代码规范
 
@@ -189,3 +209,105 @@ module.exports = {
 }
 ```
 
+## Git Hook
+
+### husky
+
+git commit的时候会对你可以运行eslint --fix对代码进行检查，如果检查通过，则能正常提交，如果不通过，则报错
+
+官网配置：[https://typicode.github.io/husky/#/?id=usage](https://typicode.github.io/husky/#/?id=usage)
+
+安装配置（版本6及以上）
+
+1、自动配置（官网推荐）
+
+```shell
+npx husky-init && yarn
+```
+
+该命令做了四件事(不分先后顺序)
+
+1. 安装husky到开发依赖
+2. 在项目的根目录下创建.husky文件夹
+3. 在 .husky 目录创建 pre-commit hook，并初始化 pre-commit 命令为 npm test
+4.  修改 package.json 的 scripts，增加 "prepare": "husky install"
+
+npx husky-init 做了第2、3、4点，yarn 做了第一点的内容
+
+所以可以根据这个命令做的这四件事，手动进行配置
+
+2、手动配置
+
+* 安装husky
+
+```shell
+yarn add husky -D
+```
+
+* 创建Git Hook
+
+```shell
+npx husky install
+```
+
+这个命令对应上面第二第三点
+
+* 手动修改 package.json 的 scripts，增加 "prepare": "husky install"
+
+上面两种方法已经把husky集成到项目中，然后修改Git Hook 中触发的命令，就是修改.husky/pre-commit文件中的npm test为下面内容
+
+```shell
+eslint --fix ./src --ext .vue,.js,.ts
+```
+
+上面命令的意思是对所有的的vue、js、ts文件执行 eslint --fix 命令
+
+所以现在解释commit代码时的整个流程，当git commit 的时候，会触发pre-commit脚本执行，脚本执行会对所有的的vue、js、ts文件执行 eslint --fix 命令。
+
+### lint-staged
+
+我们commit的时候，其实不需要对所有的文件都进行检查和修复，只需要对修改的文件进行就可以了，所以这个时候我需要集成lint-staged
+
+1. 安装
+
+```shell
+yarn add lint-staged -D
+```
+2. 在 package.json里增加 lint-staged 配置项
+
+```json
+"lint-staged": {
+  "*.{vue,js,ts}": "eslint --fix"
+},
+```
+
+3. 修改 .husky/pre-commit hook 的触发命令为：npx lint-staged
+
+## commit message 校验
+
+### commitlint
+
+只让符合 Angular 规范的 commit message 通过
+
+1. 安装 commitlint
+
+```shell
+npm i @commitlint/config-conventional @commitlint/cli -D
+```
+
+2. 配置 commitlint
+
+执行以下命令
+
+```shell
+echo "module.exports = {extends: ['@commitlint/config-conventional']}" > commitlint.config.js
+```
+
+3. 增加Git Hook钩子
+
+使用 husky 的 commit-msg hook 触发验证提交信息的命令
+我们使用 husky 命令在 .husky 目录下创建 commit-msg 文件，并在此执行 commit message 的验证命令。
+
+```shell
+npx husky add .husky/commit-msg "npx --no-install commitlint --edit $1"
+```
