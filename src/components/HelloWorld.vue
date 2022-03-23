@@ -13,43 +13,43 @@
 const originList = [
   {
     id: 1,
-    name: "坤坤",
+    name: '坤坤'
   },
   {
     id: 2,
-    name: "小宝",
+    name: '小宝'
   },
   {
     id: 3,
-    name: "大叔",
-  },
-];
+    name: '大叔'
+  }
+]
 export default {
   data() {
     return {
-      input: "",
-      list: originList,
-    };
+      input: '',
+      list: originList
+    }
   },
   watch: {
     input(value) {
-      console.log(value);
-    },
+      console.log(value)
+    }
   },
   methods: {
     search() {
-      console.log(this.input, typeof this.input);
-      if (this.input === "") {
-        return (this.list = originList);
+      if (this.input === '') {
+        this.list = originList
+      } else {
+        this.list = originList.filter((item) => item.name === this.input)
       }
-      this.list = originList.filter((item) => item.name === this.input);
     },
     clear() {
-      this.input = "";
-      this.search();
-    },
-  },
-};
+      this.input = ''
+      this.search()
+    }
+  }
+}
 </script>
 
 <style lang="less" scoped>
