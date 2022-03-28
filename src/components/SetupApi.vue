@@ -10,11 +10,11 @@
 </template>
 
 <script>
-import useSearch from "../composables/useSearch.js"
+import useSearch from '../composables/useSearch'
+
 export default {
   data() {
-    return {
-    }
+    return {}
   },
   setup() {
     return useSearch()

@@ -1,11 +1,14 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
-  <SetupApi></SetupApi>
+  <div>
+    <img alt="Vue logo" src="./assets/logo.png" />
+    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <SetupApi></SetupApi>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// eslint-disable-next-line import/no-unresolved
+import HelloWorld from '@components/HelloWorld.vue'
 import SetupApi from './components/SetupApi.vue'
 
 export default {

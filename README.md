@@ -88,7 +88,7 @@ max_line_length = off
 trim_trailing_whitespace = false
 ```
 
-> VSCode 使用 EditorConfig 需要去插件市场下载插件 EditorConfig for VS Code 
+> VSCode 使用 EditorConfig 需要去插件市场下载插件 EditorConfig for VS Code
 
 ### Prettier
 
