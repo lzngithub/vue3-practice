@@ -38,6 +38,7 @@ export default {
   },
   methods: {
     search() {
+      console.log(this.input, typeof this.input)
       if (this.input === '') {
         this.list = originList
       } else {
