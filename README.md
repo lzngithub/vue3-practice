@@ -230,7 +230,7 @@ npx husky-init && yarn
 1. 安装husky到开发依赖
 2. 在项目的根目录下创建.husky文件夹
 3. 在 .husky 目录创建 pre-commit hook，并初始化 pre-commit 命令为 npm test
-4.  修改 package.json 的 scripts，增加 "prepare": "husky install"
+4. 修改 package.json 的 scripts，增加 "prepare": "husky install"
 
 npx husky-init 做了第2、3、4点，yarn 做了第一点的内容
 
@@ -310,4 +310,61 @@ echo "module.exports = {extends: ['@commitlint/config-conventional']}" > commitl
 
 ```shell
 npx husky add .husky/commit-msg "npx --no-install commitlint --edit $1"
+```
+
+## 配置路径别名（vue3）
+
+1.修改vue.config.js中代码
+
+```js
+const { defineConfig } = require('@vue/cli-service')
+const path = require('path')
+
+const resolve = (dir) => path.join(__dirname, dir)
+
+module.exports = defineConfig({
+  transpileDependencies: true,
+  chainWebpack: (config) => {
+    config.resolve.alias // 添加别名
+      .set('@', resolve('src'))
+      .set('@assets', resolve('src/assets'))
+      .set('@components', resolve('src/components'))
+  }
+})
+```
+
+2.修改jsconfig.json中代码（可选，当你导入的时候可以提示）
+
+```json
+"paths": {
+  "@*": [
+    "src/*",
+  ],
+  "@components/*": [
+    "src/components/*",
+  ]
+},
+```
+
+3.配置eslint
+
+eslint本身是识别不了路径别名的，所以需要借助插件和配置
+
+* 安装 eslint-import-resolver-webpack
+
+```shell
+yarn add -D eslint-import-resolver-webpack
+```
+
+* 在.eslintrc.js 配置文件中的添加下面内容
+
+```js
+settings: {
+  'import/resolver': {
+    webpack: {
+      // 此处config对应webpack.config.js的路径，我这个路径是vue-cli3默认的路径
+      config: 'node_modules/@vue/cli-service/webpack.config.js'
+    }
+  }
+},
 ```

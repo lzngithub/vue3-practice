@@ -7,9 +7,8 @@
 </template>
 
 <script>
-// eslint-disable-next-line import/no-unresolved
 import HelloWorld from '@components/HelloWorld.vue'
-import SetupApi from './components/SetupApi.vue'
+import SetupApi from '@components/SetupApi.vue'
 
 export default {
   name: 'App',
